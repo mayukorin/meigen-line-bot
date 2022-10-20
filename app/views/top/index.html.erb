@@ -1,5 +1,66 @@
-トップページ
-<div>
-    <%= ENV['TOKEN_FILE_NAME'] %>
-    <button type="button" class="btn btn-primary">Primary</button>
+<div class="jumbotron jumbotron-fluid">
+  <div class="top-message-box">
+    <div class="container text-center text-white py-5">
+      <div class="font-size-28">出かける前に「名言」を</div>
+      <br>
+      <br>
+      <h1 class="font-size-70">名言ガチャ</h1>
+      <br>
+      <br>
+      <div>今欲しい名言を回せるガチャガチャ専門店</div>
+      <%= link_to "名言を探しに行く","#" ,class:"btn btn-color btn-lg m-3" %>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col text-center explain">
+        <h2>出かける前に「名言」を</h2>
+        <br>
+        面接、デート...緊張することありますよね？<br>
+        そんな予定の前に名言ガチャを回してみましょう。偉人たちが素敵な名言で応援してくれます。
+    </div>
+    <div class="col  img-background text-center">
+      <%= image_tag 'ガチャガチャマシーン.png', class: 'img-fluid explain-img'%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col  img-background text-center">
+      <div class="gacha-pon-box m-3">
+        <%= image_tag '名言通知.png', class: 'img-fluid explain-img'%>
+      </div>
+    </div>
+    <div class="col explain text-center">
+        <h2>予定に合う名言を毎日ゲット</h2>
+        <br>
+        Google Calendar と連携すれば、あなたの予定にあった名言が毎朝届きます。
+        <br>
+        届いた名言を読めば、今日も一日その予定を頑張る気持ちになれることでしょう。
+        <br>
+        今日の予定を入力することでも，その予定に合った名言をゲットできます．
+        <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center explain">
+        <h2>ゲットした名言をコレクション</h2>
+        <br>
+        出た「名言」はコレクションすることができます。<br>全部集めるころには、あなたも立派な名言コレクターです。
+    </div>
+    <div class="col img-background text-center">
+      <div class="gacha-pon-box m-3">
+        <div class="meigen-box m-4">
+          <div class="meigen-explain">
+            学ぶことで才能は開花する。
+            <br>
+            志がなければ、学問の完成はない。
+          </div>
+          <div class="meigen-title">
+            諸葛孔明
+          </div>
+        </div>
+        <%= image_tag 'ガチャポン.png', class: 'img-fluid explain-img'%>
+      </div>
+    </div>
+  </div>
 </div>

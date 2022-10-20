@@ -13,3 +13,220 @@
  *= require_tree .
  *= require_self
  */
+
+ body {
+	font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif !important;
+	font-size: 22px !important;
+	background-color: #EAE4DC !important;
+}
+.bold-head {
+	color: #333333;
+	font-weight: bold;
+	background-color: #D9D9D9;
+}
+
+.font-size-20 {
+	font-size: 20px;
+}
+
+.font-size-48 {
+	font-size: 48px;
+}
+
+
+.jumbotron {
+	background:url(top-image.jpg) center no-repeat; 
+	background-size: cover;
+	padding: 0px !important;
+	margin: 0px !important;
+}
+
+.top-message-box {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.btn-color {
+	background-color: #397B90 !important;
+	color: white !important;
+}
+.img-background {
+	background-color: #D9D9D9;
+}
+.explain {
+	margin-top: 53px;
+	font-size: 18px;
+}
+.explain-img {
+	margin-top: 60px;
+	margin-bottom: 60px;
+	width: 70%;
+}
+
+.gacha-pon-box {
+	background-color: #AEA07B;
+	border: solid 10px #784F00;
+}
+
+.page-title {
+	margin-top: 129px;
+    position: relative;
+}
+
+.page-title:before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	bottom: -10px; /*下線の上下位置調整*/
+	display: inline-block;
+	width: 100px; /*下線の幅*/
+	height: 8px; /*下線の太さ*/
+	-moz-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translate(-50%); /*位置調整*/
+	background-color: #2879C5; /*下線の色*/
+}
+
+.meigen-page-title {
+	margin-top: 129px;
+}
+.gacha-shop-box {
+	margin-top: 40px;
+}
+
+.gacha-shop-img {
+	margin-top: 30px;
+}
+
+.category-title {
+	background-color: #784F00;
+	color: white;
+}
+
+.gacha-machine-box {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+.gacha-img {
+	margin-top: 50px;
+	width: 50%;
+}
+
+.meigen-img {
+	margin-top: 50px;
+	width: 40%;
+}
+.meigen-show-img-wrapper{
+	margin: 0 auto;
+}
+.meigen-card {
+	background-color: #E8E8E8;
+}
+
+.meigen-explain-meigen-page {
+	font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+}
+
+.action-explain {
+	text-align: left !important;
+}
+
+.meigen-page-content {
+	margin-left: 120px;
+	margin-right: 120px;
+}
+
+.not-top-margin {
+	margin-top: 0px;
+}
+
+.footer{
+	color: #fff;
+  width: 100%;
+  height: auto;
+  margin-top: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+  background-color: #62574D;
+  vertical-align: middle; 
+  text-align: center;
+  position: absolute;/*←絶対位置*/
+  bottom: 0; /*下に固定*/
+}
+.copyright{
+	vertical-align: middle; 
+}
+
+
+.collection-search{
+	margin-top: 10px;
+	font-weight: bold;
+}
+.collection-search:first-child{
+	margin-top: 30px;
+
+}
+.form-box {
+	margin-left: 120px;
+	margin-right: 120px;
+}
+
+.error-box {
+	margin-top: 50px;
+
+}
+.nav-link{
+	color: #212529!important;
+	font-weight: 600!important;
+}
+.header-link:hover{
+	opacity: 0.5;
+}
+
+.wrap {
+	min-height: 100vh;
+    position: relative;/*←相対位置*/
+	box-sizing: border-box;
+	padding-bottom: 120px;
+}
+
+.privacy_link {
+	text-decoration: none;
+	color: white;
+}
+
+.privacy_link:hover{
+	opacity: 0.5;
+	text-decoration: none;
+	color: white;
+}
+
+.disabled{
+    pointer-events: none !important;
+}
+
+
+.div-center {
+	margin: auto;
+}
+
+.calendar-explain {
+	width: 75%;
+}
+
+.TextTyping span {
+    display: none;
+}
+  
+/*文字列後ろの線の設定*/
+.TextTyping::after {
+    content: "|";
+    animation: typinganime .8s ease infinite;
+}
+
+@keyframes typinganime{
+    from{opacity:0}
+    to{opacity:1}
+}
+  
