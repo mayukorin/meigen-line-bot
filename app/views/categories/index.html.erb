@@ -1,0 +1,14 @@
+<div class="font-size-48 text-center page-title">ガチャショップ</div>
+<div class="container gacha-shop-box">
+  <div class="row">
+    <% @categories.each_with_index do |category, cnt| %>
+      <div class="col-md-4 text-center gacha-machine-box">
+        <%= link_to image_tag('ガチャガチャマシーン-trim.png', class: 'img-fluid gacha-shop-img'), category_path(category.id), data: {"turbolinks" => false} %>
+        <div class="category-title"><%= category.name =%></div>
+      </div>
+      <% if cnt != 0 && cnt %3 == 0 %>
+        <br />
+      <% end %>
+    <% end %>
+  </div>
+</div>
