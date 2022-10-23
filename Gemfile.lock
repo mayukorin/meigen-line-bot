@@ -68,7 +68,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    anime_js_rails (1.1.0)
     bindex (0.8.1)
     bootsnap (1.12.0)
       msgpack (~> 1.2)
@@ -136,6 +135,8 @@ GEM
     nokogiri (1.13.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.7-x64-mingw-ucrt)
+      racc (~> 1.4)
+    nokogiri (1.13.7-x86_64-linux)
       racc (~> 1.4)
     pg (1.4.1)
     pg (1.4.1-x64-mingw-ucrt)
@@ -224,9 +225,9 @@ GEM
 PLATFORMS
   arm64-darwin-21
   x64-mingw-ucrt
+  x86_64-linux
 
 DEPENDENCIES
-  anime_js_rails
   bootsnap
   capybara
   debug
