@@ -5,7 +5,12 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @meigen = Meigen.where(category_id: @category.id).sample  
-    session[:meigen] = @meigen
+    if @category.name == "オリジナルの名言"
+      puts "oriorioriori"
+      session[:meigen_id] = 0
+    else
+      @meigen_id = Meigen.where(category_id: @category.id).pluck(:id).sample  
+      session[:meigen_id] = @meigen_id
+    end
   end
 end

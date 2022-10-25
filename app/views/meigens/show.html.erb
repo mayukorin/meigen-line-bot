@@ -4,7 +4,11 @@
         <%= image_tag 'ガチャポン.png', class: 'img-fluid meigen-img'%>
     </div>
     <br>
-    <%= render 'meigens/result_meigen', meigen:@meigen %>
+    <% if @is_original %>
+        <%= render 'meigens/result_original_meigen', meigen:@meigen %>
+    <% else %>
+        <%= render 'meigens/result_meigen', meigen:@meigen %>
+    <% end %>
 <% else %>
     <div class="font-size-48 text-center">
         <div class="meigen-page-title">
