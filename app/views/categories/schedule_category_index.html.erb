@@ -1,0 +1,15 @@
+<div class="meigen-page-content text-center meigen-page-title">
+    <div class="font-size-48 text-center page-title">予定に合う名言をゲット</div>
+    <br/>
+    <div class="form-box">
+        <%= form_with url: show_schedule_categories_path, method: :get, local: true do |f| %>
+            <div class="field form-group">
+                <%= f.label "今日の予定" %><br />
+                <%= f.text_field :schedule, class: "form-control", style: "width: 50%; display: inline-block;" %>
+            </div>
+            <div class="actions text-center">
+                <%= f.submit "名言をゲット", class: "btn btn-color btn-lg m-3" %>
+            </div>
+        <% end %>
+    </div>
+</div>

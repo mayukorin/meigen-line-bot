@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   root "top#index"
   resources :categories
   get '/meigen_show_by_category', to: 'meigens#show_by_category'
+  get '/schedule_categories', to: 'categories#index_schedule_category'
+  get '/show_schedule_categories', to: 'categories#show_schedule_category'
 end

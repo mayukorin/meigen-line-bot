@@ -1,0 +1,107 @@
+<div class="font-size-48 text-center page-title">
+    <span id="schedule"><%= @schedule %></span>
+    に合う名言は？
+</div>
+<div class="col-sm text-center">
+     <h3 class="TextTyping mt-4">↓クリック！!</h3>
+     <%= button_tag style:"border: none; outline: none; background: transparent;", id: 'one-gacha-machine' do %>
+          <%= image_tag 'ガチャガチャマシーン-trim.png', class: 'img-fluid explain-img', style:"margin: 0px;" %>
+     <% end %>
+
+     <div class="col-sm text-center " id="form-text" style="display: none">
+          <%= link_to "ガチャ結果を取得中..（約1分かかります）", meigen_show_by_category_path, method: :get, class: "btn btn-color btn-lg mb-1 test disabled", id: "to-result"%>
+     </div>
+</div>
+
+<script type="module">
+    import anime from "animejs";
+
+    console.log("ok");
+    let gacha = document.getElementById('one-gacha-machine');
+    let clickCnt = 0;
+    console.log("ok2");
+    gacha.addEventListener('click',function(){
+        if (clickCnt == 0) {
+            anime({
+                targets: gacha,
+                translateX: 10,
+                duration: 1000,
+                loop: true,
+            });
+            document.getElementById("form-text").style.display = "block";
+            console.log("ok3");
+            const BASE_URL = gon.base_url;
+            console.log(BASE_URL);
+            const schedule = document.getElementById("schedule").innerText;
+            console.log(schedule);
+            document.getElementById("form-text").style.display = "block" ;
+            // axios.get(BASE_URL+"find_meigen_by_schedule?schedule="+schedule)
+            // .then((response) => {
+            //     console.log("resonse");
+            //     console.log(response.data);
+            //     window.setTimeout(() => {
+            //             console.log("80s経過");
+            //             axios.get(BASE_URL+"show_by_schedule?schedule="+schedule)
+            //             .then((response) => {
+            //                 console.log("resonse2");
+            //                 console.log(response.data);
+            //                 const target = document.getElementById("to-result");
+            //                 target.innerText = "ガチャ結果を見る";
+            //                 target.classList.remove("disabled");
+            //             });
+            //     }, 80000);
+            // });
+            clickCnt += 1;
+        }
+    });
+
+
+    function TextTypingAnime() {
+        $('.TextTyping').each(function () {
+            let elemPos = $(this).offset().top - 50;
+            let scroll = $(window).scrollTop();
+            let windowHeight = $(window).height();
+            let thisChild = "";
+            if (scroll >= elemPos - windowHeight) {
+                thisChild = $(this).children(); //spanタグを取得
+                //spanタグの要素の１つ１つ処理を追加
+                thisChild.each(function (i) {
+                    let time = 100;
+                    //時差で表示する為にdelayを指定しその時間後にfadeInで表示させる
+                    $(this).delay(time * i);
+                    $(this).delay(time * i).fadeIn(time);
+                });
+            } else {
+                thisChild = $(this).children();
+                thisChild.each(function () {
+                $(this).stop(); //delay処理を止める
+                $(this).css("display", "none"); //spanタグ非表示
+                });
+            }   
+        });
+    }
+
+    // 画面をスクロールをしたら動かしたい場合の記述
+    $(window).scroll(function () {
+        TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
+    });// ここまで画面をスクロールをしたら動かしたい場合の記述
+
+    // 画面が読み込まれたらすぐに動かしたい場合の記述
+    $(window).on('load', function () {
+        //spanタグを追加する
+        let element = $(".TextTyping");
+        element.each(function () {
+            let text = $(this).html();
+            let textbox = "";
+            text.split('').forEach(function (t) {
+                if (t !== " ") {
+                textbox += '<span>' + t + '</span>';
+                } else {
+                textbox += t;
+                }
+            });
+            $(this).html(textbox);
+        });
+        TextTypingAnime();/* アニメーション用の関数を呼ぶ*/
+    });
+</script>
