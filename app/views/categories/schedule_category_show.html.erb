@@ -30,6 +30,7 @@
             const BASE_URL = gon.base_url;
             const schedule = document.getElementById("schedule").innerText;
             document.getElementById("form-text").style.display = "block" ;
+            console.log(BASE_URL)
             axios.get(BASE_URL+"async_find_meigen_by_schedule?schedule="+schedule)
             .then(() => {
                 window.setTimeout(() => {
