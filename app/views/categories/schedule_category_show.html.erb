@@ -16,10 +16,8 @@
 <script type="module">
     import anime from "animejs";
 
-    console.log("ok");
     let gacha = document.getElementById('one-gacha-machine');
     let clickCnt = 0;
-    console.log("ok2");
     gacha.addEventListener('click',function(){
         if (clickCnt == 0) {
             anime({
@@ -29,28 +27,20 @@
                 loop: true,
             });
             document.getElementById("form-text").style.display = "block";
-            console.log("ok3");
             const BASE_URL = gon.base_url;
-            console.log(BASE_URL);
             const schedule = document.getElementById("schedule").innerText;
-            console.log(schedule);
             document.getElementById("form-text").style.display = "block" ;
-            // axios.get(BASE_URL+"find_meigen_by_schedule?schedule="+schedule)
-            // .then((response) => {
-            //     console.log("resonse");
-            //     console.log(response.data);
-            //     window.setTimeout(() => {
-            //             console.log("80s経過");
-            //             axios.get(BASE_URL+"show_by_schedule?schedule="+schedule)
-            //             .then((response) => {
-            //                 console.log("resonse2");
-            //                 console.log(response.data);
-            //                 const target = document.getElementById("to-result");
-            //                 target.innerText = "ガチャ結果を見る";
-            //                 target.classList.remove("disabled");
-            //             });
-            //     }, 80000);
-            // });
+            axios.get(BASE_URL+"async_find_meigen_by_schedule?schedule="+schedule)
+            .then(() => {
+                window.setTimeout(() => {
+                    axios.get(BASE_URL+"set_meigen_for_schedule_to_session?schedule="+schedule)
+                    .then(() => {
+                        const target = document.getElementById("to-result");
+                        target.innerText = "ガチャ結果を見る";
+                        target.classList.remove("disabled");
+                    });
+                }, 80000);
+            });
             clickCnt += 1;
         }
     });

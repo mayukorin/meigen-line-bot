@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root "top#index"
   resources :categories
   get '/meigen_show_by_category', to: 'meigens#show_by_category'
+  get '/set_meigen_for_schedule_to_session', to: 'meigens#set_meigen_for_schedule_to_session'
+  get '/async_find_meigen_by_schedule', to: 'meigens#async_find_meigen_by_schedule'
   get '/schedule_categories', to: 'categories#index_schedule_category'
   get '/show_schedule_categories', to: 'categories#show_schedule_category'
 end
