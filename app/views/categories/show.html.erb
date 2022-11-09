@@ -1,14 +1,16 @@
-<div class="font-size-48 text-center page-title"><%= @category.name %>ガチャ</div>
-<div class="col-sm text-center">
-     <h3 class="TextTyping mt-4">↓クリック！!</h3>
-     <%= button_tag style:"border: none; outline: none; background: transparent;", id: 'one-gacha-machine' do %>
-          <%= image_tag 'ガチャガチャマシーン-trim.png', class: 'img-fluid explain-img', style:"margin: 0px;" %>
-     <% end %>
-</div>
-<br />
-
-<div class="col-sm text-center" id="gacha-form-text" style="display: none">
-     <%= link_to "ガチャ結果を見る", meigen_show_by_category_path, method: :get, class: "btn btn-color btn-lg mb-2 test"%>
+<div class="text-center page-title mt-4"><h2 class="mx-1"><%= @category.name %>ガチャ</h2></div>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-6 text-center">
+            <h3 class="text-typing mt-4">↓クリック！!</h3>
+            <%= button_tag id: 'one-gacha-machine' do %>
+                <%= image_tag 'ガチャ.png', class: 'img-fluid' %>
+            <% end %>
+            <div id="gacha-form-text" class="mt-2">
+                <%= link_to "ガチャ結果を見る", meigen_show_by_category_path, method: :get, class: "btn btn-color btn-lg mb-2"%>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="module">
@@ -32,7 +34,7 @@ gacha.addEventListener('click',function(){
 
 
 function TextTypingAnime() {
-    $('.TextTyping').each(function () {
+    $('.text-typing').each(function () {
         let elemPos = $(this).offset().top - 50;
         let scroll = $(window).scrollTop();
         let windowHeight = $(window).height();
@@ -64,7 +66,7 @@ $(window).scroll(function () {
 // 画面が読み込まれたらすぐに動かしたい場合の記述
 $(window).on('load', function () {
     //spanタグを追加する
-    let element = $(".TextTyping");
+    let element = $(".text-typing");
     element.each(function () {
         let text = $(this).html();
         let textbox = "";

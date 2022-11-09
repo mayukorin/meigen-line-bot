@@ -1,40 +1,28 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="top-message-box">
     <div class="container text-center text-white py-5">
-      <div class="font-size-28">出かける前に「名言」を</div>
-      <br>
-      <br>
+      出かける前に「名言」を
       <h1 class="font-size-70">名言ガチャ</h1>
       <br>
       <br>
       <div>今欲しい名言を回せるガチャガチャ専門店</div>
-      <%= link_to "名言を探しに行く","#" ,class:"btn btn-color btn-lg m-3" %>
+      <%= link_to "名言を探しに行く", categories_path, class:"btn btn-color btn-lg m-3" %>
     </div>
   </div>
 </div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col text-center explain">
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-12 col-md-5 text-center explain mb-2">
+        <%= image_tag 'ガチャ.png', class: 'img-fluid w-75 mt-2 mb-4'%>
+        <h2>「名言」との偶然の出会い</h2>
+        名言ガチャを回してみてください．<br>
+        新たな名言と出会えるかもしれません
+    </div>
+    <div class="col-12 col-md-5 text-center explain mb-2">
+        <%= image_tag '名言通知.png', class: 'img-fluid w-75 mt-2 mb-4'%>
         <h2>出かける前に「名言」を</h2>
-        <br>
-        面接、デート...緊張することありますよね？<br>
-        そんな予定の前に名言ガチャを回してみましょう。偉人たちが素敵な名言で応援してくれます。
-    </div>
-    <div class="col  img-background text-center">
-      <%= image_tag 'ガチャガチャマシーン-trim.png', class: 'img-fluid explain-img'%>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col  img-background text-center">
-      <div class="gacha-pon-box m-3">
-        <%= image_tag '名言通知.png', class: 'img-fluid explain-img'%>
-      </div>
-    </div>
-    <div class="col explain text-center">
-        <h2>予定に合う名言を毎日ゲット</h2>
-        <br>
-        今日の予定を入力することで，その予定に合った名言をゲットできます．
-        <br>
+        今日の予定を入力してみましょう．<br>
+        偉人たちがその予定に合った素敵な名言で応援してくれます．
     </div>
   </div>
 </div>

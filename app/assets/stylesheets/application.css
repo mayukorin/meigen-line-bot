@@ -35,7 +35,7 @@
 
 
 .jumbotron {
-	background:url(top-image.jpg) center no-repeat; 
+	background:url(assets/top-image.jpg) center no-repeat; 
 	background-size: cover;
 	padding: 0px !important;
 	margin: 0px !important;
@@ -53,7 +53,6 @@
 	background-color: #D9D9D9;
 }
 .explain {
-	margin-top: 53px;
 	font-size: 18px;
 }
 .explain-img {
@@ -68,7 +67,6 @@
 }
 
 .page-title {
-	margin-top: 129px;
     position: relative;
 }
 
@@ -88,7 +86,7 @@
 }
 
 .meigen-page-title {
-	margin-top: 129px;
+	margin-top: 50px;
 }
 .gacha-shop-box {
 	margin-top: 40px;
@@ -209,12 +207,12 @@
 	width: 75%;
 }
 
-.TextTyping span {
+.text-typing span {
     display: none;
 }
   
 /*文字列後ろの線の設定*/
-.TextTyping::after {
+.text-typing::after {
     content: "|";
     animation: typinganime .8s ease infinite;
 }
@@ -224,3 +222,17 @@
     to{opacity:1}
 }
   
+#one-gacha-machine {
+	border: none; 
+	outline: none; 
+	background: transparent;
+}
+
+#gacha-form-text {
+	display: none;
+}
+
+.form-field {
+	width: 50%; 
+	display: inline-block;
+}

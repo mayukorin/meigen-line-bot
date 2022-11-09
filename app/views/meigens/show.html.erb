@@ -1,19 +1,21 @@
 <% if @is_session_existed %>
-    <div class="font-size-48 text-center meigen-page-title">名言が出ました...!!</div>
-    <div class="col-sm-8 col-md-8 text-center meigen-show-img-wrapper">
-        <%= image_tag 'ガチャポン.png', class: 'img-fluid meigen-img'%>
-    </div>
-    <br>
-    <% if @is_original %>
-        <%= render 'meigens/result_original_meigen', meigen:@meigen %>
-    <% else %>
-        <%= render 'meigens/result_meigen', meigen:@meigen %>
-    <% end %>
-<% else %>
-    <div class="font-size-48 text-center">
-        <div class="meigen-page-title">
-            まずはガチャを回してください
+    <div class="text-center mt-4"><h2>名言が出ました...!!</h2></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 text-center">
+                <%= image_tag 'ガチャポン.png', class: 'img-fluid'%>
+            </div>
+            <br>
+            <% if @is_original %>
+                <%= render 'meigens/result_original_meigen', meigen:@meigen %>
+            <% else %>
+                <%= render 'meigens/result_meigen', meigen:@meigen %>
+            <% end %>
         </div>
+    </div>
+<% else %>
+    <div class="text-center mt-4">
+        <h2>まずはガチャを回してください</h2>
         <div>
            <%= link_to "#" ,class:"nav-link header-link" do %>
                 ガチャを選ぶ<span class="sr-only">(current)</span>
