@@ -1,4 +1,4 @@
-class Author < ApplicationRecord
+class Gacha < ApplicationRecord
     has_many :meigens, dependent: :destroy
 end
   

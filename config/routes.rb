@@ -4,10 +4,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "top#index"
-  resources :categories
-  get '/meigen_show_by_category', to: 'meigens#show_by_category'
+  resources :gachas
+  get '/meigen_show_by_gacha', to: 'meigens#show_by_gacha'
   get '/set_meigen_for_schedule_to_session', to: 'meigens#set_meigen_for_schedule_to_session'
   get '/async_find_meigen_by_schedule', to: 'meigens#async_find_meigen_by_schedule'
-  get '/schedule_categories', to: 'categories#index_schedule_category'
-  get '/show_schedule_categories', to: 'categories#show_schedule_category'
+  get '/schedule_gachas', to: 'gachas#index_schedule_gacha'
+  get '/show_schedule_gachas', to: 'gachas#show_schedule_gacha'
 end

@@ -8,21 +8,22 @@
 
 require 'csv'
 
-# ActiveRecord::Base.transaction do 
-#   cnt = 0
-#   CSV.foreach('db/meigen.csv') do |row|
-#     if cnt == 0
-#       row[0] = (row[0])[1..-1]
-#     end
-#     meigen = Meigen.new(
-#       body: row[0],
-#     )
-#     Category.find_or_create_by(name: row[1]).meigens << meigen
-#     Author.find_or_create_by(name: row[2]).meigens << meigen
-#     cnt += 1
-#   end
-# end
+ActiveRecord::Base.transaction do 
+  cnt = 0
+  Meigen.destroy_all
+  CSV.foreach('db/meigen.csv') do |row|
+    if cnt == 0
+      row[0] = (row[0])[1..-1]
+    end
+    meigen = Meigen.new(
+      body: row[0],
+    )
+    Gacha.find_or_create_by(name: row[1]).meigens << meigen
+    Author.find_or_create_by(name: row[2]).meigens << meigen
+    cnt += 1
+  end
+end
 
 ActiveRecord::Base.transaction do 
-  Category.find_or_create_by(name: "オリジナルの名言")
+  Gacha.find_or_create_by(name: "オリジナルの名言")
 end

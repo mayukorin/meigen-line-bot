@@ -3,7 +3,7 @@ require 'net/http'
 class MeigensController < ApplicationController
   @@meigen_bodies_for_schedule = {}
 
-  def show_by_category
+  def show_by_gacha
     @meigen_id = session[:meigen_id]
     
     @is_session_existed = true
