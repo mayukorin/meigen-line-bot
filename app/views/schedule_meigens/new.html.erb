@@ -2,7 +2,7 @@
     <div class="font-size-48 text-center page-title">予定に合う名言をゲット</div>
     <br/>
     <div class="form-box">
-        <%= form_with url: show_schedule_gachas_path, method: :get, local: true do |f| %>
+        <%= form_with url: schedule_gacha_show_path, method: :get, local: true do |f| %>
             <div class="field form-group">
                 <%= f.label "今日の予定" %><br />
                 <%= f.text_field :schedule, class: "form-control", style: "width: 50%; display: inline-block;" %>

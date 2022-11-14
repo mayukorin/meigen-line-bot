@@ -3,8 +3,8 @@ class GachasController < ApplicationController
     @gachas = Gacha.all
   end
 
-  def index_schedule_gacha
-    render 'schedule_gacha_index' # indexではない方が良いかも schedule 入力だから 予定に合うガチャを作ろう
+  def new_schedule
+    render 'gachas/schedule_gacha/new_schedule'
   end
 
   def show
@@ -20,7 +20,7 @@ class GachasController < ApplicationController
   def show_schedule_gacha
     gon.base_url = ENV['BASE_URL']
     @schedule = params[:schedule]
-    render "schedule_gacha_show"
+    render "gachas/schedule_gacha/show"
   end
 
 end

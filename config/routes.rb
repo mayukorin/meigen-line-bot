@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   get '/meigen_show_by_gacha', to: 'meigens#show_by_gacha'
   get '/set_meigen_for_schedule_to_session', to: 'meigens#set_meigen_for_schedule_to_session'
   get '/async_find_meigen_by_schedule', to: 'meigens#async_find_meigen_by_schedule'
-  get '/schedule_gachas', to: 'gachas#index_schedule_gacha'
-  get '/show_schedule_gachas', to: 'gachas#show_schedule_gacha'
+  get '/schedule_gacha/schedules/new', to: 'gachas#new_schedule'
+  get '/schedule_gacha/show', to: 'gachas#show_schedule_gacha'
 end
