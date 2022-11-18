@@ -49,22 +49,11 @@
 	background-color: #397B90 !important;
 	color: white !important;
 }
-.img-background {
-	background-color: #D9D9D9;
-}
+
 .explain {
 	font-size: 18px;
 }
-.explain-img {
-	margin-top: 60px;
-	margin-bottom: 60px;
-	width: 70%;
-}
 
-.gacha-pon-box {
-	background-color: #AEA07B;
-	border: solid 10px #784F00;
-}
 
 .page-title {
     position: relative;
@@ -88,36 +77,13 @@
 .meigen-page-title {
 	margin-top: 50px;
 }
-.gacha-shop-box {
-	margin-top: 40px;
-}
 
-.gacha-shop-img {
-	margin-top: 30px;
-}
 
 .gacha-title {
 	background-color: #784F00;
 	color: white;
 }
 
-.gacha-machine-box {
-	padding-left: 0px !important;
-	padding-right: 0px !important;
-}
-
-.gacha-img {
-	margin-top: 50px;
-	width: 50%;
-}
-
-.meigen-img {
-	margin-top: 50px;
-	width: 40%;
-}
-.meigen-show-img-wrapper{
-	margin: 0 auto;
-}
 .meigen-card {
 	background-color: #E8E8E8;
 }
@@ -135,9 +101,6 @@
 	margin-right: 120px;
 }
 
-.not-top-margin {
-	margin-top: 0px;
-}
 
 .footer{
 	margin-top: 10px;
@@ -152,23 +115,6 @@
 }
 
 
-.collection-search{
-	margin-top: 10px;
-	font-weight: bold;
-}
-.collection-search:first-child{
-	margin-top: 30px;
-
-}
-.form-box {
-	margin-left: 120px;
-	margin-right: 120px;
-}
-
-.error-box {
-	margin-top: 50px;
-
-}
 .nav-link{
 	color: #212529!important;
 	font-weight: 600!important;
@@ -196,15 +142,6 @@
 
 .disabled{
     pointer-events: none !important;
-}
-
-
-.div-center {
-	margin: auto;
-}
-
-.calendar-explain {
-	width: 75%;
 }
 
 .text-typing span {
