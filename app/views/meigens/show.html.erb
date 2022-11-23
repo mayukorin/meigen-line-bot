@@ -6,10 +6,10 @@
                 <%= image_tag 'ガチャポン.png', class: 'img-fluid'%>
             </div>
             <br>
-            <% if @is_original %>
-                <%= render 'meigens/result_original_meigen', meigen:@meigen %>
+            <% if @is_original_meigen %>
+                <%= render 'meigens/result_original_meigen', meigen: @original_meigen_body %>
             <% else %>
-                <%= render 'meigens/result_meigen', meigen:@meigen %>
+                <%= render 'meigens/result_meigen', meigen: @meigen %>
             <% end %>
         </div>
     </div>
