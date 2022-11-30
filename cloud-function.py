@@ -7,6 +7,8 @@ import json
 import markovify
 import random
 
+POSTPOSITONAL_PARTICLE = "助詞"
+
 def hello_world(request):
     """Responds to any HTTP request.
     Args:
@@ -73,7 +75,7 @@ def hello_world(request):
     else:
 
         model, meigen_vecs, meigen_list = load_tools()
-        mecab=MeCab.Tagger('-Owakati')
+        mecab=MeCab.Tagger('-Ochasen')
         schedules = request_json['schedules']
         most_fit_meigens = []
 
@@ -82,7 +84,7 @@ def hello_world(request):
           for schedule in schedules_per_user:
 
             schedule_with_similar_words = generate_schedule_with_similar_words(model, mecab, schedule)
-            schedule_vec = text2vector(model, mecab, schedule_with_similar_words)
+            schedule_vec = word2vector(model, mecab, schedule_with_similar_words)
 
             if schedule_vec is not None:
               max_similarity_score = 0
@@ -100,23 +102,25 @@ def hello_world(request):
         
         return json.dumps(most_fit_meigens, ensure_ascii=False)
 
-def text2vector(model, mecab, sentence, unknowns=[]):
-    """
-    文章ベクトルを求める関数。
-    300次元のベクトルを返す。未知の単語で文章ベクトルが求められないときはNoneを返す。
-    @param sentence 文章
-    @param unknowns 辞書にない不明な語があったら格納する配列。呼び出しもとから渡すこと。Noneなら何もしない。
-    """
+def word2vector(model, mecab, sentence, unknowns=[]):
+   
+    node = mecab.parseToNode(sentence)
     _sv = np.empty((0,300), np.float32)
-    for w in mecab.parse(sentence).split():
-        if len(w) <= 1:
-          continue
-        try:
-          wv = model[w]
-          _sv = np.append(_sv, np.array([wv]), axis=0) 
-        except KeyError:
-          if w not in unknowns:
-            unknowns.append(w)
+
+    while node:
+      if node.feature.split(",")[0] != POSTPOSITONAL_PARTICLE:
+          w = node.surface
+          try:
+            wv = model[w]
+            _sv = np.append(_sv, np.array([wv]), axis=0) 
+          except KeyError:
+            if w not in unknowns:
+              unknowns.append(w)
+          finally:
+            node = node.next
+      else:
+        node = node.next
+
     if _sv.shape[0]>0:
       return np.array([np.average(_sv, axis = 0)]) # 類似度で重み付き平均にしてもよいかも
     else:
@@ -147,13 +151,19 @@ def load_tools():
 def generate_schedule_with_similar_words(model, mecab, schedule):
   
   schedule_with_similar_words = schedule
+  node = mecab.parseToNode(schedule)
 
-  mm_list = mecab.parse(schedule).split()
-  for mm in mm_list:
-    if len(mm) <= 1:
-      # 助詞はskip
-      continue     
-    for sm in model.most_similar(mm, topn=4):
-      schedule_with_similar_words  += sm[0]
+  while node:
+    if node.feature.split(",")[0] != POSTPOSITONAL_PARTICLE:
+        w = node.surface
+        try:
+          for sm in model.most_similar(w, topn=4):
+            schedule_with_similar_words  += sm[0]
+        except KeyError as e:
+          print(e)
+        finally:
+          node = node.next
+    else:
+      node = node.next
 
   return schedule_with_similar_words
