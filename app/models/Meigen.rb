@@ -30,7 +30,7 @@ class Meigen < ApplicationRecord
         end
     end
 
-    def self.fetch_meigen_by_schedule(schedule_name)
+    def self.fetch_meigen_body_by_schedule_from_cloud_function(schedule_name)
         today_all_schedules = []
         today_schedules = []
         today_schedules.push(schedule_name)

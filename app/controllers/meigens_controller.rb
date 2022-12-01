@@ -28,27 +28,10 @@ class MeigensController < ApplicationController
     render 'meigens/show'
   end
 
-  def async_find_meigen_by_schedule
-    
-    Thread.start do
-
-      begin
-        @@meigen_bodies_for_schedule.store(params[:schedule], Meigen.fetch_meigen_by_schedule(params[:schedule]))
-        puts "完了"
-      rescue => exception
-          puts exception.message
-      end
-
-    end
-
-    render json: "名言探し中(非同期でThread内実行中）"
-  end
-
-  def set_meigen_for_schedule_to_session
-    puts "取り出し開始"
-    meigen_model_for_schedule = Meigen.find_by(body: @@meigen_bodies_for_schedule[params[:schedule]])
+  def find_meigen_by_schedule
+    meigen_body = Meigen.fetch_meigen_body_by_schedule_from_cloud_function(params[:schedule])
+    meigen_model_for_schedule = Meigen.find_by(body: meigen_body)
     session[:meigen_id] = meigen_model_for_schedule.id
     render json: ""
   end
-  
 end

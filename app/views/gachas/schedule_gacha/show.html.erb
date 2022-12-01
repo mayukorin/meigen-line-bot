@@ -20,28 +20,27 @@
 
     let gacha = document.getElementById('one-gacha-machine');
     let clickCnt = 0;
+
     gacha.addEventListener('click',function(){
         if (clickCnt == 0) {
-            anime({
+            let animation = anime({
                 targets: gacha,
                 translateX: 10,
                 duration: 1000,
                 loop: true,
+                autoplay: false,
             });
+            animation.play();
             document.getElementById("gacha-form-text").style.display = "block";
             const BASE_URL = gon.base_url;
             const schedule = document.getElementById("schedule").innerText;
             document.getElementById("gacha-form-text").style.display = "block";
-            axios.get(BASE_URL+"async_find_meigen_by_schedule?schedule="+schedule)
+            axios.get(BASE_URL+"find_meigen_by_schedule?schedule="+schedule, {timeout: 70000})
             .then(() => {
-                window.setTimeout(() => {
-                    axios.get(BASE_URL+"set_meigen_for_schedule_to_session?schedule="+schedule)
-                    .then(() => {
-                        const target = document.getElementById("to-result");
-                        target.innerText = "ガチャ結果を見る";
-                        target.classList.remove("disabled");
-                    });
-                }, 80000);
+                animation.pause();
+                const target = document.getElementById("to-result");
+                target.innerText = "ガチャ結果を見る";
+                target.classList.remove("disabled");
             });
             clickCnt += 1;
         }
