@@ -181,3 +181,7 @@
 @media screen and (min-width: 481px) {
 	.add-footer-margin { margin-bottom: 800px;}
 }
+
+#gacha_id {
+	display: none;
+}

@@ -8,13 +8,14 @@ class GachasController < ApplicationController
   end
 
   def show
+    gon.base_url = ENV['BASE_URL']
     @gacha = Gacha.find(params[:id])
-    if @gacha.name == "オリジナルの名言"
-      session[:meigen_id] = 0
-    else
-      @meigen_id = Meigen.where(gacha_id: @gacha.id).pluck(:id).sample  
-      session[:meigen_id] = @meigen_id
-    end
+    # if @gacha.name == "オリジナルの名言"
+    #   session[:meigen_id] = 0
+    # else
+    #   @meigen_id = Meigen.where(gacha_id: @gacha.id).pluck(:id).sample  
+    #   session[:meigen_id] = @meigen_id
+    # end
   end
 
   def show_schedule_gacha
