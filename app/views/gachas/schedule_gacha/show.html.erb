@@ -9,7 +9,7 @@
                 <%= image_tag 'ガチャ.png', class: 'img-fluid' %>
             <% end %>
             <div id="gacha-form-text" class="mt-2">
-                <%= link_to "ガチャ結果を取得中..（約1分かかります）", meigen_show_by_gacha_path, method: :get, class: "btn btn-color btn-lg mb-2 disabled", id: "to-result" %>
+                <%= link_to "ガチャ結果を取得中..（約1分かかります）", meigen_take_out_path, method: :get, class: "btn btn-color btn-lg mb-2 disabled", id: "to-result" %>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
             const BASE_URL = gon.base_url;
             const schedule = document.getElementById("schedule").innerText;
             document.getElementById("gacha-form-text").style.display = "block";
-            axios.get(BASE_URL+"find_meigen_by_schedule?schedule="+schedule, {timeout: 70000})
+            axios.get(BASE_URL+"select_by_schedule?schedule="+schedule, {timeout: 70000})
             .then(() => {
                 animation.pause();
                 const target = document.getElementById("to-result");

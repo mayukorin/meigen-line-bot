@@ -5,7 +5,7 @@ class Meigen < ApplicationRecord
     belongs_to :gacha
     belongs_to :author
 
-    def self.fetch_original_meigen
+    def self.fetch_original_meigen_body_from_cloud_function
         url = URI.parse("https://us-central1-eighth-ridge-348103.cloudfunctions.net/meigen-recomment")
         http = Net::HTTP.new(url.host, url.port)
         http.use_ssl = true
