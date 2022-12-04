@@ -102,14 +102,6 @@
 }
 
 
-.footer{
-	margin-top: 10px;
-	color: #fff;
-	background-color: #62574D;
-	bottom: 0; 
-}
-
-
 .copyright{
 	vertical-align: middle; 
 }
@@ -172,14 +164,6 @@
 .form-field {
 	width: 50%; 
 	display: inline-block;
-}
-
-@media screen and (max-width: 480px) {
-	.add-footer-margin { margin-bottom: 440px;}
-}
-
-@media screen and (min-width: 481px) {
-	.add-footer-margin { margin-bottom: 800px;}
 }
 
 #gacha_id {
