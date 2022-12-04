@@ -12,9 +12,11 @@ class MeigensController < ApplicationController
       @is_original_meigen = session[:original_meigen_body]
       if @is_original_meigen
         @original_meigen_body = session[:original_meigen_body]
+        session.delete(:original_meigen_body)
       else
         @meigen = Meigen.find(@meigen_id)
       end
+      session.delete(:meigen_id)
     end
     render 'meigens/show'
   end
