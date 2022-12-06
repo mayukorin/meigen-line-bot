@@ -20,7 +20,7 @@ gacha.addEventListener('click',function(){
         .then(() => {
             animation.pause();
             const target = document.getElementById("to-result");
-            target.innerText = "ガチャ結果を見る";
+            target.innerText = "名言を取り出す";
             target.classList.remove("disabled");
         });
         clickCnt += 1;
