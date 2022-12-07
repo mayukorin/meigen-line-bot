@@ -17,7 +17,8 @@ gacha.addEventListener('click',function(){
         const gacha_id = document.getElementById("gacha_id").innerText;
         document.getElementById("gacha-form-text").style.display = "block";
         axios.get(BASE_URL+"select_by_random_or_original?gacha_id="+gacha_id, {timeout: 70000})
-        .then(() => {
+        .then((original_meigen) => {
+            console.log(original_meigen);
             animation.pause();
             const target = document.getElementById("to-result");
             target.innerText = "名言を取り出す";

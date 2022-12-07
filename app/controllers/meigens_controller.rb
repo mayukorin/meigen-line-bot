@@ -33,6 +33,7 @@ class MeigensController < ApplicationController
       begin
         original_meigen_body = OriginalAndScheduleMeigenFetcher.fetch_original_meigen_body_from_cloud_function
         session[:original_meigen_body] = original_meigen_body
+        render json: original_meigen_body and return
       rescue => exception
        puts exception
       end
