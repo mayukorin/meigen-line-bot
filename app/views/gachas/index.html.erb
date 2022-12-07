@@ -3,7 +3,7 @@
   <div class="row">
     <% @gachas.each_with_index do |gacha, cnt| %>
       <div class="col-md-4 text-center mt-5">
-        <%= link_to image_tag('ガチャガチャマシーン-trim.png', class: 'img-fluid'), gacha_path(gacha.id), data: {"turbolinks" => false} %>
+        <%= link_to image_tag('ガチャガチャマシーン-trim.png', class: 'img-fluid'), gacha_path(gacha.id) %>
         <div class="gacha-title"><%= gacha.name =%></div>
       </div>
       <% if cnt != 0 && cnt %3 == 0 %>

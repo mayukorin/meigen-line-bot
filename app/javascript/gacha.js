@@ -4,7 +4,7 @@ let gacha = document.getElementById('one-gacha-machine');
 let clickCnt = 0;
 gacha.addEventListener('click',function(){
     if (clickCnt == 0) {
-        let animation = anime({
+        const animation = anime({
             targets: gacha,
             translateX: 10,
             duration: 1000,
@@ -17,12 +17,11 @@ gacha.addEventListener('click',function(){
         const gacha_id = document.getElementById("gacha_id").innerText;
         document.getElementById("gacha-form-text").style.display = "block";
         axios.get(BASE_URL+"select_by_random_or_original?gacha_id="+gacha_id, {timeout: 70000})
-        .then((original_meigen) => {
-            console.log(original_meigen);
+        .then(() => {
             animation.pause();
-            const target = document.getElementById("to-result");
-            target.innerText = "名言を取り出す";
-            target.classList.remove("disabled");
+            const result_elem = document.getElementById("to-result");
+            result_elem.innerText = "名言を取り出す";
+            result_elem.classList.remove("disabled");
         });
         clickCnt += 1;
     }

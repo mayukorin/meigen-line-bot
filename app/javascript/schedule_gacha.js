@@ -5,7 +5,7 @@ let clickCnt = 0;
 
 gacha.addEventListener('click',function(){
     if (clickCnt == 0) {
-        let animation = anime({
+        const animation = anime({
             targets: gacha,
             translateX: 10,
             duration: 1000,
@@ -20,9 +20,9 @@ gacha.addEventListener('click',function(){
         axios.get(BASE_URL+"select_by_schedule?schedule="+schedule, {timeout: 70000})
         .then(() => {
             animation.pause();
-            const target = document.getElementById("to-result");
-            target.innerText = "名言を取り出す";
-            target.classList.remove("disabled");
+            const result_elem = document.getElementById("to-result");
+            result_elem.innerText = "名言を取り出す";
+            result_elem.classList.remove("disabled");
         });
         clickCnt += 1;
     }
