@@ -20,12 +20,11 @@ class LinebotController < ApplicationController
                 case event.type
                 when Line::Bot::Event::MessageType::Text
                     schedule = event.message['text']
-                    # meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule)
+                    meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule)
                     
                     message = {
                         type: 'text',
-                        # text: schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
-                        text: "ok"
+                        text: schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
                     }
                     client.reply_message(event['replyToken'], message)
                 end
