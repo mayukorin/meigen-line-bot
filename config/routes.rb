@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get '/meigen_take_out', to: 'meigens#take_out'
   get '/select_by_schedule', to: 'meigens#select_by_schedule'
   get '/select_by_random_or_original', to: 'meigens#select_by_random_or_original'
+
+  post '/callback', to: 'linebot#callback'
 end

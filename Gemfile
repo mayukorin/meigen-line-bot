@@ -52,6 +52,7 @@ gem 'dotenv-rails'
 # js ファイル内で，.env の環境変数使ために利用
 gem 'gon'
 
+gem 'line-bot-api'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
