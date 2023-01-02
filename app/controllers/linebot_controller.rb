@@ -35,7 +35,7 @@ class LinebotController < ApplicationController
                 when Line::Bot::Event::MessageType::Text
                     userId = event["source"]["userId"]
                     if LinebotController.is_schedule_meigen_request_user(userId)
-                        message_text = "少々お待ちください。"
+                        message_text = "ぴったりな名言を選び中ですので少々お待ちください。"
                         message = {
                             type: 'text',
                             text: message_text
@@ -44,15 +44,15 @@ class LinebotController < ApplicationController
                     else
                         LinebotController.set_schedule_meigen_request_user(userId)
                         schedule = event.message['text']
-                        # meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule)
-                        meigen_body = "aaa"
-                        sleep(10)
+                        meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule)
+
                         message_text = schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
                         message = {
                             type: 'text',
                             text: message_text
                         }
                         client.reply_message(event['replyToken'], message)
+
                         LinebotController.remove_schedule_meigen_request_user(userId)
                     end
                 end
