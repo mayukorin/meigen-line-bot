@@ -66,7 +66,7 @@ class OriginalAndScheduleMeigenFetcher
     end
 
     def self.setup_http_and_req(body)
-        cloud_function_url = URI.parse("https://us-central1-eighth-ridge-348103.cloudfunctions.net/schedule_meigen-1") 
+        cloud_function_url = URI.parse("https://us-central1-eighth-ridge-348103.cloudfunctions.net/schedule_meigen") 
 
         http = Net::HTTP.new(cloud_function_url.host, cloud_function_url.port)
         http.use_ssl = true
