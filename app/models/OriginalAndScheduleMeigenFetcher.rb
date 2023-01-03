@@ -2,6 +2,9 @@ require 'net/http'
 
 class OriginalAndScheduleMeigenFetcher
 
+    BASIC_PLAN_FOR_ENGLISH = 'basic'
+    PREIUM_PLAN_FOR_ENGLISH = 'premium'
+
     def self.fetch_original_meigen_body_from_cloud_function
         body = {
             "new_meigen" => ""
@@ -19,10 +22,33 @@ class OriginalAndScheduleMeigenFetcher
         end
     end
 
-    def self.fetch_meigen_body_by_schedule_from_cloud_function(schedule_name)
+    def self.fetch_meigen_body_by_schedule_from_basic_cloud_function(schedule_name)
 
         body = {
-            "schedule" => schedule_name
+            "schedule" => schedule_name,
+            "plan" => BASIC_PLAN_FOR_ENGLISH
+        }.to_json
+        http, req = setup_http_and_req(body)
+
+        begin
+            res = http.request(req)
+            results = JSON.parse(res.body)
+            puts results
+            meigen_body_for_schedule = results['most_fit_meigen']
+            return meigen_body_for_schedule
+        rescue => exception
+            puts exception.message
+
+            raise Exception.new exception.message
+        end
+    end
+
+
+    def self.fetch_meigen_body_by_schedule_from_premium_cloud_function(schedule_name)
+
+        body = {
+            "schedule" => schedule_name,
+            "plan" => PREIUM_PLAN_FOR_ENGLISH
         }.to_json
         http, req = setup_http_and_req(body)
 
