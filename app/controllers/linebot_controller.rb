@@ -76,41 +76,22 @@ class LinebotController < ApplicationController
                     }
 
                     client.reply_message(event['replyToken'], mode_question_message)
-
-
-                    # if LinebotController.is_schedule_meigen_request_user(userId)
-                    #     message_text = "ぴったりな名言を選び中ですので少々お待ちください。"
-                    #     message = {
-                    #         type: 'text',
-                    #         text: message_text
-                    #     }
-                    #     client.reply_message(event['replyToken'], message)
-                    # else
-                    #     LinebotController.set_schedule_meigen_request_user(userId)
-                    #     schedule = event.message['text']
-                    #     meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule)
-
-                    #     message_text = schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
-                    #     message = {
-                    #         type: 'text',
-                    #         text: message_text
-                    #     }
-                    #     client.reply_message(event['replyToken'], message)
-
-                    #     LinebotController.remove_schedule_meigen_request_user(userId)
-                    # end
                 end
             when Line::Bot::Event::Postback
                 schedule = LinebotController.get_schedule_for_request_user(event['source']['userId'])
 
-                case event['postback']['data']
-                when PREIUM_PLAN_FOR_ENGLISH
-                    meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_premium_cloud_function(schedule)
-                when BASIC_PLAN_FOR_ENGLISH
-                    meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_basic_cloud_function(schedule)
+                begin
+                    case event['postback']['data']
+                    when PREIUM_PLAN_FOR_ENGLISH
+                        meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule, PREIUM_PLAN_FOR_ENGLISH)
+                    when BASIC_PLAN_FOR_ENGLISH
+                        meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule, BASIC_PLAN_FOR_ENGLISH)
+                    end
+                    message_text = schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
+                rescue => exception
+                    message_text = "申し訳ありません．名言を選べませんでした．少し時間をおいてからもう一度お試しください．"
                 end
 
-                message_text = schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
                 message = {
                     type: 'text',
                     text: message_text
