@@ -1,126 +1,62 @@
-import MeCab
 from google.cloud import storage
-import gensim
 import numpy as np
 import openpyxl
 import json
-import markovify
 import random
+from pymagnitude import Magnitude
+from sudachipy import tokenizer, dictionary
+
 
 POSTPOSITONAL_PARTICLE = "助詞"
 
 def hello_world(request):
-    """Responds to any HTTP request.
-    Args:
-        request (flask.Request): HTTP request object.
-    Returns:
-        The response text or any set of values that can be turned into a
-        Response object using
-        `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
-    """
+
     request_json = request.get_json()
     if request.args and 'message' in request.args:
         return request.args.get('message')
     elif request_json and 'message' in request_json:
         return request_json['message']
-    elif request_json and 'new_meigen' in request_json:
-        recipe_markov = {}
-        size = 3
-        mecab = MeCab.Tagger()
-        mecab = MeCab.Tagger("")
-        mecab.parse("")
-
-        recipes = {}
-        
-        with open('./recipe.txt', encoding="utf-8_sig") as f:
-          for line in f:
-            meigen_of_recipe = ""
-            
-            data = ["BEGIN","BEGIN"]
-
-            node = mecab.parseToNode(line).next
-            while node.next:
-                data.append(node.surface)
-                meigen_of_recipe += node.surface
-                node = node.next
-
-            data.append("END")
-            recipes[meigen_of_recipe] = 1
-
-            for i in range(len(data)-size+1):
-              value = data[i+size-1] # 最後の要素だけ取り出す
-              key = tuple(data[i:i+size-1])
-
-              if key not in recipe_markov.keys():
-                recipe_markov[key] = []
-              recipe_markov[key].append(value)
-
-          while True:
-            key = tuple(["BEGIN","BEGIN"])
-            new_meigen = ""
-            # indexes = []
-
-            while True: 
-              length = len(recipe_markov[key])
-              key = tuple([key[1] , recipe_markov[key][random.randint(0, length-1)]])
-
-              if key[0] != "BEGIN":
-                new_meigen += key[0]
-              if key[1] == "END":
-                break
-
-            if recipes.get(new_meigen) is None:
-              # 原文とかぶってない     
-              return json.dumps(new_meigen, ensure_ascii=False)
     else:
 
         model, meigen_vecs, meigen_list = load_tools()
-        mecab=MeCab.Tagger('-Ochasen')
-        schedules = request_json['schedules']
-        most_fit_meigens = []
+        tokenizer_obj = dictionary.Dictionary().create()
+        schedule = request_json['schedule']
+        plan = request_json['plan']
 
-        for schedules_per_user in schedules:
-          most_fit_meigens_per_person = []
-          for schedule in schedules_per_user:
-
-            schedule_with_similar_words = generate_schedule_with_similar_words(model, mecab, schedule)
-            schedule_vec = word2vector(model, mecab, schedule_with_similar_words)
-
-            if schedule_vec is not None:
-              max_similarity_score = 0
-              max_index = 0
-              for i, vec_key in enumerate(meigen_vecs.files):
-                meigen_vec = meigen_vecs[vec_key]
-                if max_similarity_score < cos_similarity(schedule_vec, meigen_vec.T):
-                  max_similarity_score = cos_similarity(schedule_vec, meigen_vec.T)
-                  max_index = i
-                
-              most_fit_meigen = ((meigen_list["Sheet1"]).cell(int(max_index)+1, 2)).value
-              most_fit_meigens_per_person.append(most_fit_meigen)
-              
-          most_fit_meigens.append(most_fit_meigens_per_person)
+        schedule_with_similar_words = schedule
+        if plan == "premium":
+          schedule_with_similar_words = generate_schedule_with_similar_words(model, tokenizer_obj, schedule)
         
-        return json.dumps(most_fit_meigens, ensure_ascii=False)
+        schedule_vec = word2vector(model, tokenizer_obj, schedule_with_similar_words)
 
-def word2vector(model, mecab, sentence, unknowns=[]):
-   
-    node = mecab.parseToNode(sentence)
+        if schedule_vec is not None:
+          max_similarity_score = 0
+          max_index = 0
+          for i, vec_key in enumerate(meigen_vecs.files):
+            meigen_vec = meigen_vecs[vec_key]
+            if max_similarity_score < cos_similarity(schedule_vec, meigen_vec.T):
+              max_similarity_score = cos_similarity(schedule_vec, meigen_vec.T)
+              max_index = i
+        else:
+          max_index = 0
+            
+        most_fit_meigen = ((meigen_list["Sheet1"]).cell(int(max_index)+1, 2)).value
+        
+        return json.dumps({"most_fit_meigen": most_fit_meigen}, ensure_ascii=False)
+
+def word2vector(model, tokenizer_obj, sentence, unknowns=[]):
+
+    ms = tokenizer_obj.tokenize(sentence)
     _sv = np.empty((0,300), np.float32)
-
-    while node:
-      if node.feature.split(",")[0] != POSTPOSITONAL_PARTICLE:
-          w = node.surface
-          try:
-            wv = model[w]
-            _sv = np.append(_sv, np.array([wv]), axis=0) 
-          except KeyError:
-            if w not in unknowns:
-              unknowns.append(w)
-          finally:
-            node = node.next
-      else:
-        node = node.next
-
+    for m in ms:
+      if not m.part_of_speech()[0].endswith(POSTPOSITONAL_PARTICLE):
+        w = m.surface()
+        try:
+          wv = model.query(w)
+          _sv = np.append(_sv, np.array([wv]), axis=0) 
+        except KeyError:
+          if w not in unknowns:
+            unknowns.append(w)
     if _sv.shape[0]>0:
       return np.array([np.average(_sv, axis = 0)]) # 類似度で重み付き平均にしてもよいかも
     else:
@@ -135,35 +71,35 @@ def load_tools():
     storage_client = storage.Client()
     bucket = storage_client.get_bucket('gcf-sources-1048067232771-us-central1')
 
-    blob = bucket.get_blob('model.vec')
-    blob.download_to_filename("/tmp/model.vec")
+    blob = bucket.get_blob('chive-1.2-mc90.magnitude')
+    blob.download_to_filename("/tmp/chive-1.2-mc90.magnitude")
+  
     blob = bucket.get_blob('meigen_list.xlsx')
     blob.download_to_filename("/tmp/meigen_list.xlsx")
-    blob = bucket.get_blob('meigen_vecs.npz')
-    blob.download_to_filename("/tmp/meigen_vecs.npz")
 
-    model = gensim.models.KeyedVectors.load_word2vec_format("/tmp/model.vec", binary=False)
-    meigen_vecs = np.load("/tmp/meigen_vecs.npz")
+    blob = bucket.get_blob('meigen_vecs_chiVe.npz')
+    blob.download_to_filename("/tmp/meigen_vecs_chiVe.npz")
+
+    model = Magnitude("/tmp/chive-1.2-mc90.magnitude")
+    meigen_vecs = np.load("/tmp/meigen_vecs_chiVe.npz")
     meigen_list = openpyxl.load_workbook("/tmp/meigen_list.xlsx")
 
     return model, meigen_vecs, meigen_list
 
-def generate_schedule_with_similar_words(model, mecab, schedule):
+def generate_schedule_with_similar_words(model, tokenizer_obj, schedule):
   
   schedule_with_similar_words = schedule
-  node = mecab.parseToNode(schedule)
+  ms = tokenizer_obj.tokenize(schedule)
 
-  while node:
-    if node.feature.split(",")[0] != POSTPOSITONAL_PARTICLE:
-        w = node.surface
+  for m in ms:
+    if m.part_of_speech()[0] != POSTPOSITONAL_PARTICLE:
+        w = m.surface()
+        if w == 'word ''':
+          continue
         try:
           for sm in model.most_similar(w, topn=4):
             schedule_with_similar_words  += sm[0]
         except KeyError as e:
           print(e)
-        finally:
-          node = node.next
-    else:
-      node = node.next
 
   return schedule_with_similar_words
