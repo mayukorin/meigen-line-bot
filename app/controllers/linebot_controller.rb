@@ -64,12 +64,7 @@ class LinebotController < ApplicationController
 
     def most_fit_meigen_for_schedule_message(selected_mode:, schedule:)
         begin
-            case selected_mode
-            when PREIUM_PLAN_FOR_ENGLISH
-                meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule: schedule, mode: PREIUM_PLAN_FOR_ENGLISH)
-            when BASIC_PLAN_FOR_ENGLISH
-                meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule: schedule, mode: BASIC_PLAN_FOR_ENGLISH)
-            end
+            meigen_body = OriginalAndScheduleMeigenFetcher.fetch_meigen_body_by_schedule_from_cloud_function(schedule: schedule, mode: selected_mode)
             message_text = schedule+"，頑張ってください！\nそんなあなたに贈る名言は「"+meigen_body+"」です！"
         rescue => exception
             message_text = "申し訳ありません．名言を選べませんでした．少し時間をおいてからもう一度お試しください．"
