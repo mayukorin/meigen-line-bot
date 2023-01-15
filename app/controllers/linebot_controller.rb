@@ -3,7 +3,7 @@ require 'line/bot'
 class LinebotController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    @schedule_meigen_request_users = Hash.new
+    @@schedule_meigen_request_users = Hash.new
 
     BASIC_PLAN_FOR_JAPANESE = 'ベーシック'
     PREIUM_PLAN_FOR_JAPANESE = 'プレミアム'
@@ -11,15 +11,15 @@ class LinebotController < ApplicationController
     PREIUM_PLAN_FOR_ENGLISH = 'premium'
 
     def self.set_schedule_meigen_request_user(userId:, schedule:)
-        @schedule_meigen_request_users.store(userId, schedule)
+        @@schedule_meigen_request_users.store(userId, schedule)
     end
 
     def self.get_schedule_for_request_user(userId:)
-        @schedule_meigen_request_users[userId]
+        @@schedule_meigen_request_users[userId]
     end
 
     def self.remove_schedule_meigen_request_user(userId:)
-        @schedule_meigen_request_users.delete(userId)
+        @@schedule_meigen_request_users.delete(userId)
     end
 
     def client
