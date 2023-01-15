@@ -9,7 +9,7 @@ from sudachipy import tokenizer, dictionary
 
 POSTPOSITONAL_PARTICLE = '助詞'
 
-def hello_world(request):
+def calc_meigen_for_schedule(request):
 
     request_json = request.get_json()
     if request_json and 'schedule' in request_json and 'plan' in request_json:
